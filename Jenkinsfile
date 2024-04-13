@@ -1,4 +1,7 @@
 pipeline{
+    environment{
+        BUILD_NUM=''
+    }
     agent any
     // tools{
     //     nodejs 'node'
@@ -23,7 +26,13 @@ pipeline{
             steps{
                 //sh 'npm run'
                 echo 'Deploying the code' 
-                slackSend color: 'good',message:'Deployment Successful'
+                
+            }
+        }
+        stage("User Notification"){
+            steps{
+                //slackSend color: 'good',message:'Deployment Successful'
+                slackSend channel: '#notification', color: 'good', message: "The deploymrnt is successful for Build N°: ${env.BUILD_NUMBER}", teamDomain: 'nicholas_ip1'
             }
         }
     }
