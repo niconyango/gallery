@@ -16,5 +16,10 @@ pipeline{
                 sh 'npm test'
             }
         }
+        stage("Deploy Code"){
+            steps{
+                sh 'node server'
+            }
+        }
     }
 }
