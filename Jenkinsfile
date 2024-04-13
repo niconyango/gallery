@@ -18,7 +18,7 @@ pipeline{
         }
         stage("Deploy Code"){
             steps{
-                sh 'npm deploy'
+                sh 'node server'
             }
         }
     }
