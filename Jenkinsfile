@@ -16,18 +16,13 @@ pipeline{
         }
         stage("Test Code"){
             steps{
-                //sh 'npm test'
-                sh 'node test'
+                sh 'npm test'
             }
         }
         stage("Deploy Code"){
             steps{
                 //sh 'npm run'
                 echo 'Deploying the code' 
-            }
-        }
-        stage("Send Message"){
-            steps{
                 slackSend color: 'good',message:'Deployment Successful'
             }
         }
