@@ -1,8 +1,5 @@
 pipeline{
     agent any
-    // tools{
-    //     node 'nodejs'
-    // }
     stages{
         stage("Clone Code"){
             steps{
@@ -12,6 +9,11 @@ pipeline{
         stage("Build Code"){
             steps{
                 sh 'npm install'
+            }
+        }
+        stage("Test Code"){
+            steps{
+                sh 'npm test'
             }
         }
     }
