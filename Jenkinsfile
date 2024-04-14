@@ -35,5 +35,23 @@ pipeline{
                 slackSend color: 'good', message: "The deployment is successful for Build N°: ${env.BUILD_NUMBER}"
             }
         }
+        // stage{
+        //     steps{
+        //         post{
+        //             always{
+        //                 emailext(
+        //                     subject: 'Deplyment Status.{currentBuild.result}',
+        //                     body: '''<html>
+        //                     <body>
+        //                     </body>
+        //                     <html>
+        //                     ''',
+        //                 )
+        //             }
+
+        //         }
+        //     }
+
+        // }
     }
 }
