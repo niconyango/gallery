@@ -24,15 +24,15 @@ pipeline{
         }
         stage("Deploy Code"){
             steps{
-                //sh 'npm run'
-                echo 'Deploying the code' 
+                sh 'npm run'
+                // echo 'Deploying the code' 
                 
             }
         }
         stage("User Notification"){
             steps{
                 //slackSend color: 'good',message:'Deployment Successful'
-                slackSend color: 'good', message: "The deploymrnt is successful for Build N°: ${env.BUILD_NUMBER}"
+                slackSend color: 'good', message: "The deployment is successful for Build N°: ${env.BUILD_NUMBER}"
             }
         }
     }
