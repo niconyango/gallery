@@ -32,7 +32,7 @@ pipeline{
         stage("User Notification"){
             steps{
                 //slackSend color: 'good',message:'Deployment Successful'
-                slackSend color: 'good', message: "Build N°: ${env.BUILD_NUMBER} was successfully deployed in https:gallery-oold.onrender.com/"
+                slackSend color: 'good', message: "Build N°: ${env.BUILD_NUMBER} was successfully deployed in 'https://gallery-oold.onrender.com/'"
             }
         }
     }
