@@ -40,13 +40,13 @@ pipeline{
         always{
             emailext(
                 subject: 'Deplyment Status.${BUILD_STATUS}',
-                body: '"'<html>
+                body: '''<html>
                             <body>
                                 <p>Build Status:${BUILD_STATUS}</p>
                                 <p>Build Number:${BUILD_NUMBER}</p>
                                 <p>Check <a href="${BUILD_URL}"> output.</a></p>
                             </body>
-                </html>'"',
+                </html>''',
                 to:'niconyango12@gmail.com',
                 from:'nicholas.onyango@student.moringaschool.com',
                 replyTo:'jenkins@example.com',
