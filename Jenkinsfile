@@ -39,12 +39,12 @@ pipeline{
      post{
         always{
             emailext(
-                subject: 'Deplyment Status.${env.BUILD_STATUS}',
+                subject: 'Deplyment Status.${BUILD_STATUS}',
                 body: '''<html>
                             <body>
-                                <p>Build Status:${env.BUILD_STATUS}</p>
-                                <p>Build Number:${env.BUILD_NUMBER}</p>
-                                <p>Check <a href="${env.BUILD_URL}"> output.</a></p>
+                                <p>Build Status:${BUILD_STATUS}</p>
+                                <p>Build Number:${BUILD_NUMBER}</p>
+                                <p>Check <a href='${BUILD_URL}'> output.</a></p>
                             </body>
                 </html>''',
                 to:'niconyango12@gmail.com',
