@@ -3,9 +3,9 @@ pipeline{
         BUILD_NUM=''
     }
     agent any
-    tools{
-        nodejs 'node'
-    }
+    // tools{
+    //     nodejs 'node'
+    // }
     stages{
         stage("Clone Code"){
             steps{
@@ -37,20 +37,35 @@ pipeline{
         }
     }
      post{
-        always{
-            emailext(
-                subject: 'Deplyment Status.${BUILD_STATUS}',
-                body: '''<html>
-                            <body>
-                                <p>Build Status:${BUILD_STATUS}</p>
-                                <p>Build Number:${BUILD_NUMBER}</p>
-                                <p>Check <a href='${BUILD_URL}'> output.</a></p>
-                            </body>
-                </html>''',
-                to:'niconyango12@gmail.com',
-                from:'niconyango12@gmail.com',
-                replyTo:'jenkins@example.com',
-                mimeType:'text/html'
+        // always{
+        //     emailext(
+        //         subject: 'Deplyment Status.${BUILD_STATUS}',
+        //         body: '''<html>
+        //                     <body>
+        //                         <p>Build Status:${BUILD_STATUS}</p>
+        //                         <p>Build Number:${BUILD_NUMBER}</p>
+        //                         <p>Check <a href='${BUILD_URL}'> output.</a></p>
+        //                     </body>
+        //         </html>''',
+        //         to:'niconyango12@gmail.com',
+        //         from:'niconyango12@gmail.com',
+        //         mimeType:'text/html'
+        //     )
+        // }
+        success {
+            emailext (
+                to: 'niconyango12@gmail.com',
+                subject: '${BUILD_STATUS}',
+                body: 'The job ${JOB_NAME} [${BUILD_NUMBER}] completed successfully.',
+                from: 'niconyango12@gmail.com'
+            )
+        }
+        failure {
+            emailext (
+                to: 'niconyango12@gmail.com',
+                subject: '${BUILD_STATUS}: Job ${JOB_NAME} [${BUILD_NUMBER}]',
+                body: 'The job ${JOB_NAME} [${BUILD_NUMBER}] failed.',
+                from:'niconyango12@gmail.com'
             )
         }
 
