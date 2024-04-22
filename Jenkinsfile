@@ -21,6 +21,7 @@ pipeline{
             steps{
                 sh 'npm test'
             }
+
         }
         stage("Deploy Code"){
             steps{
@@ -36,38 +37,34 @@ pipeline{
             }
         }
     }
-     post{
-        // always{
-        //     emailext(
-        //         subject: 'Deplyment Status.${BUILD_STATUS}',
-        //         body: '''<html>
-        //                     <body>
-        //                         <p>Build Status:${BUILD_STATUS}</p>
-        //                         <p>Build Number:${BUILD_NUMBER}</p>
-        //                         <p>Check <a href='${BUILD_URL}'> output.</a></p>
-        //                     </body>
-        //         </html>''',
-        //         to:'niconyango12@gmail.com',
-        //         from:'niconyango12@gmail.com',
-        //         mimeType:'text/html'
-        //     )
-        // }
+    post {
         success {
-            emailext (
-                to: 'niconyango12@gmail.com',
-                subject: '${BUILD_STATUS}',
-                body: 'The job ${JOB_NAME} [${BUILD_NUMBER}] completed successfully.',
-                from: 'niconyango12@gmail.com'
-            )
+            emailext attachLog: true, 
+                body:
+                    """
+                    <p>EXECUTED: Job <b>\'${env.JOB_NAME}:${env.BUILD_NUMBER})\'</b></p>
+                    <p>
+                    View console output at 
+                    "<a href="${env.BUILD_URL}">${env.JOB_NAME}:${env.BUILD_NUMBER}</a>"
+                    </p> 
+                    <p><i>(Build log is attached.)</i></p>
+                    """,
+                subject: "Status: 'SUCCESS' -Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'", 
+                to: 'bluckcomet@gmail.com'
         }
         failure {
-            emailext (
-                to: 'niconyango12@gmail.com',
-                subject: '${BUILD_STATUS}: Job ${JOB_NAME} [${BUILD_NUMBER}]',
-                body: 'The job ${JOB_NAME} [${BUILD_NUMBER}] failed.',
-                from:'niconyango12@gmail.com'
-            )
+            emailext attachLog: true, 
+                body:
+                    """
+                    <p>EXECUTED: Job <b>\'${env.JOB_NAME}:${env.BUILD_NUMBER})\'</b></p>
+                    <p>
+                    View console output at 
+                    "<a href="${env.BUILD_URL}">${env.JOB_NAME}:${env.BUILD_NUMBER}</a>"
+                    </p> 
+                    <p><i>(Build log is attached.)</i></p>
+                    """,
+                subject: "Status: FAILURE -Job \'${env.JOB_NAME}:${env.BUILD_NUMBER}\'", 
+                to: 'bluckcomet@gmail.com'
         }
-
-    }  
+    }
 }
